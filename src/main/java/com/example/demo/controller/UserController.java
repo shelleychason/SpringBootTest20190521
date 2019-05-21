@@ -5,7 +5,6 @@ import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,7 +29,7 @@ public class UserController {
     @RequestMapping("{id}")
     public ModelAndView view(@PathVariable("id") Long id, Model model) {
         Optional<User> user = userRepository.findById(id);
-        model.addAttribute("user", user);
+        model.addAttribute("user", user.get());
         model.addAttribute("title", "查看用户");
         return new ModelAndView("user/view", "userModel", model);
     }
@@ -38,7 +37,7 @@ public class UserController {
     // 获取创建表单页面
     @RequestMapping("/form")
     public ModelAndView createForm(Model model) {
-        model.addAttribute("user", new User(null,null,null));
+        model.addAttribute("user", new User(null, null, null));
         model.addAttribute("title", "创建用户");
         return new ModelAndView("user/form", "userModel", model);
     }
@@ -46,7 +45,7 @@ public class UserController {
     // 保存用户
     @RequestMapping()
     public ModelAndView saveOrUpdateUser(User user) {
-        if (user != null){
+        if (user != null) {
             user = userRepository.save(user);
         }
         return new ModelAndView("redirect:/user/list");
@@ -63,7 +62,7 @@ public class UserController {
     @RequestMapping("edit/{id}")
     public ModelAndView editForm(@PathVariable("id") Long id, Model model) {
         Optional<User> user = userRepository.findById(id);
-        model.addAttribute("user", user);
+        model.addAttribute("user", user.get());
         model.addAttribute("title", "编辑用户");
         return new ModelAndView("user/form", "userModel", model);
     }

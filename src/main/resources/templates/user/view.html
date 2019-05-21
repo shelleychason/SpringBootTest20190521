@@ -8,13 +8,13 @@
 <div th:replace="~{common/header::header}"></div>
 <h4 th:text="${userModel.title}"></h4>
 <div>
-    <p><strong>ID:</strong><span th:text="${userModel.user.id}"></span></p>
-    <p><strong>名字:</strong><span th:text="${userModel.user.name}"></span></p>
-    <p><strong>年龄:</strong><span th:text="${userModel.user.age}"></span></p>
+    <p><strong>ID:</strong><span th:text="${userModel.user.getId()}"></span></p>
+    <p><strong>名字:</strong><span th:text="${userModel.user.getName()}"></span></p>
+    <p><strong>年龄:</strong><span th:text="${userModel.user.getAge()}"></span></p>
 </div>
 <div>
-    <a th:href="@{'/user/delete/'+${userModel.user.id}}">删除</a>
-    <a th:href="@{'/user/edit/'+${userModel.user.id}}">修改</a>
+    <a th:href="@{'/user/delete/'+${userModel.user.getId()}}">删除</a>
+    <a th:href="@{'/user/edit/'+${userModel.user.getId()}}">修改</a>
 </div>
 <div th:replace="~{common/footer::footer}"></div>
 </body>

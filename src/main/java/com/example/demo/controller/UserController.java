@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -19,7 +21,7 @@ public class UserController {
     // 查询所有用户
     @RequestMapping("/list")
     public ModelAndView userList(Model model) {
-        model.addAttribute("userlist", userRepository.userList());
+        model.addAttribute("userlist", userRepository.findAll());
         model.addAttribute("title", "用户管理");
         return new ModelAndView("user/list", "userModel", model);
     }
@@ -27,7 +29,7 @@ public class UserController {
     // 根据id查询用户
     @RequestMapping("{id}")
     public ModelAndView view(@PathVariable("id") Long id, Model model) {
-        User user = userRepository.getUserById(id);
+        Optional<User> user = userRepository.findById(id);
         model.addAttribute("user", user);
         model.addAttribute("title", "查看用户");
         return new ModelAndView("user/view", "userModel", model);
@@ -36,7 +38,7 @@ public class UserController {
     // 获取创建表单页面
     @RequestMapping("/form")
     public ModelAndView createForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new User(null,null,null));
         model.addAttribute("title", "创建用户");
         return new ModelAndView("user/form", "userModel", model);
     }
@@ -45,7 +47,7 @@ public class UserController {
     @RequestMapping()
     public ModelAndView saveOrUpdateUser(User user) {
         if (user != null){
-            user = userRepository.saveOrUpdateUser(user);
+            user = userRepository.save(user);
         }
         return new ModelAndView("redirect:/user/list");
     }
@@ -53,14 +55,14 @@ public class UserController {
     // 根据id删除用户
     @RequestMapping("delete/{id}")
     public ModelAndView delete(@PathVariable("id") Long id) {
-        userRepository.deleteUser(id);
+        userRepository.deleteById(id);
         return new ModelAndView("redirect:/user/list");
     }
 
     // 修改用户
     @RequestMapping("edit/{id}")
     public ModelAndView editForm(@PathVariable("id") Long id, Model model) {
-        User user = userRepository.getUserById(id);
+        Optional<User> user = userRepository.findById(id);
         model.addAttribute("user", user);
         model.addAttribute("title", "编辑用户");
         return new ModelAndView("user/form", "userModel", model);

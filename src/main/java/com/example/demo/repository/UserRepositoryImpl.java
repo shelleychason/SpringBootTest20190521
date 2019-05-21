@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -12,37 +13,59 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository //标识UserRepositoryImpl类是一个可注入的bean
 public class UserRepositoryImpl implements UserRepository {
 
-    //生成一个递增的id，作为唯一编号
-    private static AtomicLong counterId = new AtomicLong();
-
-    // 模拟数据存储
-    private final ConcurrentMap<Long, User> userConcurrentMap = new ConcurrentHashMap<Long, User>();
 
     @Override
-    public User saveOrUpdateUser(User user) {
-        if (user.getName() != null){
-            Long id = user.getId();
-            if (id == null){
-                id=counterId.incrementAndGet();
-                user.setId(id);
-            }
-            this.userConcurrentMap.put(id,user);
-        }
-        return user;
+    public <S extends User> S save(S s) {
+        return null;
     }
 
     @Override
-    public void deleteUser(Long id) {
-        this.userConcurrentMap.remove(id);
+    public <S extends User> Iterable<S> saveAll(Iterable<S> iterable) {
+        return null;
     }
 
     @Override
-    public User getUserById(Long id) {
-        return this.userConcurrentMap.get(id);
+    public Optional<User> findById(Long aLong) {
+        return Optional.empty();
     }
 
     @Override
-    public List<User> userList() {
-        return new ArrayList<User>(this.userConcurrentMap.values());
+    public boolean existsById(Long aLong) {
+        return false;
+    }
+
+    @Override
+    public Iterable<User> findAll() {
+        return null;
+    }
+
+    @Override
+    public Iterable<User> findAllById(Iterable<Long> iterable) {
+        return null;
+    }
+
+    @Override
+    public long count() {
+        return 0;
+    }
+
+    @Override
+    public void deleteById(Long aLong) {
+
+    }
+
+    @Override
+    public void delete(User user) {
+
+    }
+
+    @Override
+    public void deleteAll(Iterable<? extends User> iterable) {
+
+    }
+
+    @Override
+    public void deleteAll() {
+
     }
 }

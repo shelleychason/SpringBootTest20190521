@@ -10,9 +10,9 @@
 <form th:action="@{/user}" method="post" th:object="${userModel.user}">
     <input type="hidden" name="id" th:value="*{id}">
     名字<br/>
-    <input type="text" name="name" th:value="*{name}">
-    年龄<br/>
     <input type="number" name="age" th:value="*{age}">
+    年龄<br/>
+    <input type="text" name="name" th:value="*{name}">
     <br/>
     <input type="submit" value="提交">
 </form>

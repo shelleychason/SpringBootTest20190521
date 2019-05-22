@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
+</head>
+<div th:replace="~{common/header :: header}"></div>
+<body>
+<div class="container blog-content-container">
+    <div sec:authorize="isAuthenticated()">
+        <p>已有用户登录</p>
+        <p>登录的用户为: <span sec:authentication="name"></span></p>
+        <p>用户角色为: <span sec:authentication="principal.authorities"></span></p>
+    </div>
+    <div sec:authorize="isAnonymous()">
+        <p>未有用户登录</p>
+    </div>
+</div>
+
+<div th:replace="~{common/footer :: footer}"></div>
+</body>
+</html>

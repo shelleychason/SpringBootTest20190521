@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+<div th:replace="~{common/header :: header}"></div>
+<!-- Page content -->
+<div class="container blog-content-container">
+    <form  th:action="@{/login}" method="post">
+        <h2 >请登录</h2>
+
+        <div class="form-group col-md-5">
+            <label for="username" class="col-form-label">账号</label>
+            <input type="text" class="form-control" id="username" name="username" maxlength="50" placeholder="请输入账号">
+
+        </div>
+        <div class="form-group col-md-5">
+            <label for="password" class="col-form-label">密码</label>
+            <input type="password" class="form-control" id="password" name="password" maxlength="30" placeholder="请输入密码" >
+        </div>
+        <div class="form-group col-md-5">
+            <button type="submit" class="btn btn-primary">登录</button>
+        </div>
+        <div class=" col-md-5" th:if="${loginError}">
+            <p class="blog-label-error" th:text="${errorMsg}"></p>
+        </div>
+    </form>
+</div><!-- /.container -->
+
+<div th:replace="~{common/footer :: footer}"></div>
+</body>
+
+</html>
